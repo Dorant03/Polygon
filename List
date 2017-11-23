@@ -1,0 +1,136 @@
+#else
+#define List_API __declspec(dllimport) 
+#endif
+
+using namespace std;
+
+template<class T>
+struct Node
+{
+	T data;
+	Node<T> *next;
+	Node(T  _data)
+	{
+		data=_data;
+		next=NULL;
+	}
+};
+
+template<class T>
+class List
+{
+private:
+	Node<T> *head;
+	Node<T> *tail;
+public:
+	List()
+    {
+		head=NULL;
+		tail=NULL;
+	}
+	void puchBack(T _data)
+	{
+		//(*tail).next=new Node(_data);
+		if(head!=NULL)
+		{
+			tail->next=new Node<T>(_data);
+			tail=tail->next;
+		}
+		else
+		{
+			head=new Node<T>(_data);
+			tail=head;
+		}
+	}
+	void print(char *end_)const
+	{
+		cout<<endl;
+		if(head==NULL)
+		{
+			cout<<"List is emply"<<endl;
+			return;
+		}
+		Node<T> *ptr=head;
+		while (ptr!=NULL)
+		{
+			cout<<ptr->data<<end_;
+			ptr=ptr->next;
+		}
+		cout<<endl;
+	}
+	Node<T> * getValue(int i)
+	{
+		Node<T> *ptr=head;
+		for(int k=0; k<i; k++)
+		{
+			ptr=ptr->next;
+		}
+		return ptr;
+	}
+	void reverse()
+	{
+		int n=size();
+		for(int i=0; i<n/2; i++)
+		{
+			replace(i, n-i-1);
+		}
+	}
+	void clear()
+	{
+		if(head==NULL) return;
+		Node<T> *ptr=head;
+		while(ptr!=NULL)
+		{
+			head=head->next;
+			delete ptr;
+			ptr=head;
+		}
+		head=NULL;
+		tail=NULL;
+	}
+	void sort(string sing)
+	{
+		if(sing=="+")
+		{
+			for(int i=0; i<size()-1; i++)
+			{
+				for(int j=0; j<size()-i-1; j++)
+				{
+					if(getValue(j)->data>getValue(j+1)->data)
+					{
+						replace(j, j+1);
+					}
+				}
+			}
+		}
+	}
+	int find(T elem)
+	{
+		for(int i=0; i<size(); i++)
+		{
+			if(getValue(i)->data==elem)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	void extend(List *list)
+	{
+		for(int i=0; i<list->size(); i++)
+		{
+			puchBack(list->getValue(i)->data);
+		}
+	}
+	~List()
+	{
+		if(head==NULL) return;
+		Node<T> *ptr=head;
+		while(ptr!=NULL)
+		{
+			head=head->next;
+			delete ptr;
+			ptr=head;
+		}
+	}
+};
