@@ -15,3 +15,47 @@ struct Node
 		next=NULL;
 	}
 };
+
+template<class T>
+class List
+{
+private:
+	Node<T> *head;
+	Node<T> *tail;
+public:
+	List()
+    {
+		head=NULL;
+		tail=NULL;
+	}
+	void puchBack(T _data)
+	{
+		//(*tail).next=new Node(_data);
+		if(head!=NULL)
+		{
+			tail->next=new Node<T>(_data);
+			tail=tail->next;
+		}
+		else
+		{
+			head=new Node<T>(_data);
+			tail=head;
+		}
+	}
+	void print(char *end_)const
+	{
+		cout<<endl;
+		if(head==NULL)
+		{
+			cout<<"List is emply"<<endl;
+			return;
+		}
+		Node<T> *ptr=head;
+		while (ptr!=NULL)
+		{
+			cout<<ptr->data<<end_;
+			ptr=ptr->next;
+		}
+		cout<<endl;
+	}
+};
