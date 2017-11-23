@@ -9,6 +9,7 @@
 class Poly
 {
 protected:
+<<<<<<< HEAD
 	Point *points;
 	int n;
 public:
@@ -29,3 +30,15 @@ public:
 	Polygon_API Poly& operator*=(double k);
 	Polygon_API ~Poly();
 };
+=======
+	List<Point> * points;
+public:
+	Polygon_API Poly();
+	Polygon_API Poly(List<Point> * points);
+		//Polygon_API Poly::Poly(const Poly &ob);
+	Polygon_API List<Point> *  getPoints();
+	Polygon_API void addPoint(double _x, double _y);
+	Polygon_API void addPoint();
+	Polygon_API ~Poly();
+};
+>>>>>>> origin/Dinarochka
