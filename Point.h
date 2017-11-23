@@ -11,6 +11,7 @@ protected:
 	double y;
 public:
 	Point_API Point();
+	//Point_API Point(istream &ob);
 	Point_API Point(double _x, double _y);
 	Point_API double getX();
 	Point_API double getY();
