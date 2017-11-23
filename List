@@ -58,4 +58,79 @@ public:
 		}
 		cout<<endl;
 	}
+	Node<T> * getValue(int i)
+	{
+		Node<T> *ptr=head;
+		for(int k=0; k<i; k++)
+		{
+			ptr=ptr->next;
+		}
+		return ptr;
+	}
+	void reverse()
+	{
+		int n=size();
+		for(int i=0; i<n/2; i++)
+		{
+			replace(i, n-i-1);
+		}
+	}
+	void clear()
+	{
+		if(head==NULL) return;
+		Node<T> *ptr=head;
+		while(ptr!=NULL)
+		{
+			head=head->next;
+			delete ptr;
+			ptr=head;
+		}
+		head=NULL;
+		tail=NULL;
+	}
+	void sort(string sing)
+	{
+		if(sing=="+")
+		{
+			for(int i=0; i<size()-1; i++)
+			{
+				for(int j=0; j<size()-i-1; j++)
+				{
+					if(getValue(j)->data>getValue(j+1)->data)
+					{
+						replace(j, j+1);
+					}
+				}
+			}
+		}
+	}
+	int find(T elem)
+	{
+		for(int i=0; i<size(); i++)
+		{
+			if(getValue(i)->data==elem)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	void extend(List *list)
+	{
+		for(int i=0; i<list->size(); i++)
+		{
+			puchBack(list->getValue(i)->data);
+		}
+	}
+	~List()
+	{
+		if(head==NULL) return;
+		Node<T> *ptr=head;
+		while(ptr!=NULL)
+		{
+			head=head->next;
+			delete ptr;
+			ptr=head;
+		}
+	}
 };
