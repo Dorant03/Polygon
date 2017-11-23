@@ -1,0 +1,120 @@
+#include <iostream>
+#include <windows.h>
+#include "Poly.h"
+using namespace std;
+void printPolygon(Poly , int n);
+
+
+void printPolygon(Poly polygon, int n)
+{
+	HWND handle = FindWindow("ConsoleWindowClass", NULL); //Ищу Хандл окна консоли
+    HDC hdc = GetDC(handle); //Получаю Хандл консоли в переменную
+ 
+	HPEN pen=CreatePen(PS_SOLID,1,RGB(255,255,255)); //Создаю ручку и задаю ей цвет
+	HBRUSH brush=CreateSolidBrush(RGB(0,0,0)); //Создаю кисть и задаю ей цвет
+	SelectObject(hdc,pen); //Выбираю созданную ручку
+	SelectObject(hdc,brush); //Выбираю созданную кисть
+
+	POINT *point=new POINT[n+1];
+	List<Point> * points=polygon.getPoints();
+	for(int i=0; i<n; i++)
+	{
+		point[i].x=points->getValue(i)->data.getX();
+		point[i].y=points->getValue(i)->data.getY();
+	}
+	point[n].x=points->getValue(0)->data.getX();
+	point[n].y=points->getValue(0)->data.getY();
+
+	for(int i=0; i<50; i++) cout<<"\n";
+	MoveToEx(hdc, 500, 0, NULL);
+	LineTo(hdc, 500, 600);
+	MoveToEx(hdc, 0, 300, NULL);
+	LineTo(hdc, 1100, 300);
+	pen=CreatePen(PS_SOLID,1,RGB(0,0,255));
+	SelectObject(hdc,pen);
+	Polyline(hdc, point , n+1);
+	pen=CreatePen(PS_SOLID,1,RGB(255,255,255));
+	SelectObject(hdc,pen);
+}
+void menu()
+{
+	cout<<"Menu:"<<endl;
+	cout<<"1.Create polygon"<<endl;
+	cout<<"2.Add Point polygon"<<endl;
+	cout<<"3.Add passanger"<<endl;
+	cout<<"4.Cancel a order"<<endl;
+	cout<<"5.Information about a plane"<<endl;
+	cout<<"6.Information about a airport"<<endl;
+	cout<<"7.Clear window"<<endl;
+}
+int main()
+{	
+	List<Poly> *polygon=new List<Poly>;
+	setlocale (LC_ALL, "ukr");
+	menu();
+	int vybir; int k;
+	cout<<"Vybir: "; cin>>vybir; cin.get();
+	while(vybir)
+	{   
+		if(0<vybir && vybir<=7)
+		{
+			switch(vybir)
+			{
+			    case 1:
+				{
+					polygon->puchBack(Poly());
+					break;
+				}
+				case 2:
+				{
+					cout<<"number polygon: "; cin>>k;
+					polygon->getValue(k-1)->data.addPoint();
+					break;
+
+				}
+				case 3:
+				{
+					cout<<"number polygon: "; cin>>k;
+					break;
+				}
+				case 4:
+				{
+					cout<<"number polygon: "; cin>>k;
+					break;
+				}
+				case 5:
+				{
+					cout<<"number polygon: "; cin>>k;
+					break;
+				}
+				case 6:
+				{
+					cout<<"number polygon: "; cin>>k;
+					int n=polygon->getValue(k-1)->data.getPoints()->size();
+					printPolygon(polygon->getValue(k-1)->data, n);
+					break;
+				}
+				case 7:
+				{
+					system("cls");
+					menu();
+					break;
+				}
+			}
+		}
+		else{  cout<<"ERROR!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;                 }
+		cout<<"Vybir: ";
+		cin>>vybir; cin.get();
+	}
+	/*polygon->puchBack(Poly());
+
+	polygon->getValue(0)->data.addPoint(0,0);//
+	polygon->getValue(0)->data.addPoint(5,-1);//
+	polygon->getValue(0)->data.addPoint(5,5);//
+	polygon->getValue(0)->data.addPoint(1,4.5);//
+	polygon->getValue(0)->data.addPoint(0,0);//
+    return 0;
+}
+
+
+
